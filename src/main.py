@@ -1,18 +1,21 @@
-abc = Triangle(3, 4, 5)
+from triangle import Triangle
+from rectangle import Rectangle
+from square import Square
+from circle import Circle
 
-abc.perimeter
-abc.area
-# klmn = Rectangle(3, 5)
-# klmn.area
-#
-# opqr = Square(3)
-# opqr.area
+triangle = Triangle(2, 2, 2)
 
-# print(opqr + klmn)
+print(triangle.perimeter)
+print(triangle.area)
 
-ooo = Circle(2)
-ooo.area
+rectangle = Rectangle(3, 5)
+square = Square(3)
 
-print(ooo + abc)
+print(rectangle + square)
+
+circle = Circle(2)
+print(circle.area)
+
+
 
 
