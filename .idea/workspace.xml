@@ -20,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="otus_hw_5" />
+        <entry key="$PROJECT_DIR$" value="otus_hw_5_3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -233,7 +233,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636289521935</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Version (corrected .gitignore) of lesson 5 HW completed Waiting for comments">
+      <created>1636466907057</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636466907057</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -252,6 +259,7 @@
     <MESSAGE value="Lesson 3 HW completed" />
     <MESSAGE value="Lesson 5 HW completed Waiting for comments" />
     <MESSAGE value="Corrected version of lesson 5 HW completed Waiting for comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected version of lesson 5 HW completed Waiting for comments" />
+    <MESSAGE value="Version (corrected .gitignore) of lesson 5 HW completed Waiting for comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version (corrected .gitignore) of lesson 5 HW completed Waiting for comments" />
   </component>
 </project>
