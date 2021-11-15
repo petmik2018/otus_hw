@@ -1,4 +1,12 @@
-def test_1(base_url):
-    res = requests.get()
-    assert res.status_code == 200
+import pytest
+import requests
+
+
+def test_1(my_url, status_code):
+    res = requests.get(my_url)
+    res_code = res.status_code
+    assert res_code == int(status_code)
+
+
+
 
