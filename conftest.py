@@ -21,32 +21,27 @@ def url(request):
 
 @pytest.fixture
 def browser(request):
-    _browser = request.config.getoption("--browser")
-    headless = request.config.getoption("--headless")
-    maximized = request.config.getoption("--maximized")
+    """ Фикстура инициализации браузера """
 
-    driver = None
+    browser = request.config.getoption("--browser")
+    url = request.config.getoption("--url")
 
-    if _browser == "chrome":
-        options = webdriver.ChromeOptions()
-        if headless:
-            options.headless = True
-        driver = webdriver.Chrome(executable_path=f"{DRIVERS}/chromedriver", options=options)
-    elif _browser == "opera":
-        driver = webdriver.Opera(executable_path=f"{DRIVERS}/operadriver")
-    elif _browser == "firefox":
-        options = webdriver.FirefoxOptions()
-        if headless:
-            options.headless = True
-        driver = webdriver.Firefox(executable_path=f"{DRIVERS}/geckodriver", options=options)
+    # https://www.selenium.dev/documentation/en/webdriver/page_loading_strategy/
+    common_caps = {"pageLoadStrategy": "eager"}
 
-    if maximized:
-        driver.maximize_window()
+    driver = webdriver.Chrome(
+        executable_path=f"{DRIVERS}/chromedriver",
+        desired_capabilities=common_caps
+    )
 
-    def final():
-        driver.quit()
+    request.addfinalizer(driver.quit)
 
-    request.addfinalizer(final)
+    def open(path=""):
+        return driver.get(url + path)
+
+    driver.maximize_window()
+
+    driver.open = open
+    driver.open()
 
     return driver
-
