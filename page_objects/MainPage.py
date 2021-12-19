@@ -3,13 +3,37 @@ from .BasePage import BasePage
 
 
 class MainPage(BasePage):
+    TOP = (By.ID, 'top')
+    TOP_LINKS = (By.ID, 'content')
+    COMMON_HOME = (By.ID, 'common-home')
     CONTENT = (By.ID, 'content')
+    SLIDESHOW = (By.ID, 'slideshow0')
     FEATURE_PRODUCTS = (By.CLASS_NAME, 'product-layout')
     FEATURE_PRODUCT_NAME = (By.CSS_SELECTOR, '.caption h4 a')
     GO_TO_WISHLIST = (By.ID, 'wishlist-total')
 
-    def verify_element_by_ID(self, element_ID):
-        self._find_element((By.ID, element_ID))
+    def verify_top(self):
+        self._find_element(self.TOP)
+
+    def verify_top_links(self):
+        self._find_element(self.TOP_LINKS)
+
+    def verify_common_home(self):
+        self._find_element(self.COMMON_HOME)
+
+    def verify_content(self):
+        self._find_element(self.CONTENT)
+
+    def verify_slideshow(self):
+        content = self._find_element(self.CONTENT)
+        self._find_element_in_element(content, self.SLIDESHOW)
+
+    def verify_featured_products(self):
+        content = self._find_element(self.CONTENT)
+        if self._find_list_of_elements_in_element(content, self.FEATURE_PRODUCTS):
+            assert True
+        else:
+            AssertionError("Featured products list not found")
 
     def get_featured_product_by_number(self, number):
         index = number - 1

@@ -4,14 +4,15 @@ from page_objects.CategoryPage import CategoryPage
 
 
 def test_main_page_elements_verification(browser):
-    # main page elements verification
-    MainPage(browser).verify_element_by_ID("top")
-    MainPage(browser).verify_element_by_ID("top-links")
-    MainPage(browser).verify_element_by_ID("common-home")
+    MainPage(browser).verify_top()
+    MainPage(browser).verify_top_links()
+    MainPage(browser).verify_common_home()
+    MainPage(browser).verify_content()
+    MainPage(browser).verify_slideshow()
+    MainPage(browser).verify_featured_products()
 
 
 def test_admin_navigation(browser, url):
-    # admin page elements verification
     browser.get(url + 'admin')
     AdminPage(browser).login_admin()
     AdminPage(browser).verify_element_by_ID('navigation')
@@ -19,14 +20,17 @@ def test_admin_navigation(browser, url):
     AdminPage(browser).logout_admin()
 
 
-def test_laptops_catalogue(browser, url):
-    # laptops catalogue test, check products quantity
-    browser.get(url + "index.php?route=product/category&path=18")
-    CategoryPage(browser).verify_element_by_ID("column-left")
-    CategoryPage(browser).verify_element_by_ID("content")
-    CategoryPage(browser).verify_element_by_ID("product-category")
-    products = CategoryPage(browser).find_products_list()
-    assert len(products) == 5
+def test_category(browser, url):
+    DESKTOPS_CATEGORY_URL = url + "index.php?route=product/category&path=20"
+    LAPTOPS_CATEGORY_URL = url + "index.php?route=product/category&path=18"
+    TABLETS_CATEGORY_URL = url + "index.php?route=product/category&path=57"
+    browser.get(TABLETS_CATEGORY_URL)
+    CategoryPage(browser).verify_product_category()
+    CategoryPage(browser).verify_left_menu()
+    CategoryPage(browser).verify_content()
+    CategoryPage(browser).verify_products_list()
+    CategoryPage(browser).verify_products_quantity()
+
 
 
 

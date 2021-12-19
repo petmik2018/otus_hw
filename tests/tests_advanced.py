@@ -7,8 +7,7 @@ from page_objects.CartPage import CartPage
 from page_objects.elements.Alerts import SuccessAlert
 
 
-def test_admin_products(browser, url):
-    # admin page test  - choose one product from products list and filter the list by its name
+def test_admin_filter_products(browser, url):
     browser.get(url + 'admin')
     AdminPage(browser)\
         .login_admin()\
@@ -24,7 +23,6 @@ def test_admin_products(browser, url):
 
 
 def test_add_product_to_wish_list(browser, number=2):
-    # main page test add to wishlist - add one of the featured products to wishlist
     product_name = MainPage(browser).get_featured_product_name(number)
     MainPage(browser).click_featured_product(number)
     ProductPage(browser).add_to_wish_list()
@@ -38,19 +36,23 @@ def test_add_product_to_wish_list(browser, number=2):
     CartPage(browser).verify_product(product_name)
 
 
-def test_to_clear_wish_list(browser):
-    # add some of featured products to wishlist and then clear wishlist
+def test_delete_product_from_wish_list(browser):
+    MainPage(browser).go_to_wish_list()
+    UserPage(browser).login_with("test2@mail.ru", "test")
+    WishListPage(browser).remove_first_product()
+
+
+def test_add_products_and_clear_wish_list(browser):
     test_add_product_to_wish_list(browser, number=1)
     test_add_product_to_wish_list(browser, number=3)
     test_add_product_to_wish_list(browser, number=4)
 
     MainPage(browser).go_to_wish_list()
     UserPage(browser).login_with("test2@mail.ru", "test")
-    while True:
-        try:
-            WishListPage(browser).remove_first_product()
-        except:
-            break
+    WishListPage(browser).remove_first_product()
+    WishListPage(browser).remove_first_product()
+    WishListPage(browser).remove_first_product()
+
     wish_list_info = WishListPage(browser).get_text_from_wishlist_link()
     assert wish_list_info == 'Wish List (0)'
 
