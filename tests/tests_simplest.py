@@ -3,33 +3,32 @@ from page_objects.MainPage import MainPage
 from page_objects.CategoryPage import CategoryPage
 
 
-def test_main_page_elements_verification(browser):
-    MainPage(browser).verify_top()
-    MainPage(browser).verify_top_links()
-    MainPage(browser).verify_common_home()
-    MainPage(browser).verify_content()
-    MainPage(browser).verify_slideshow()
-    MainPage(browser).verify_featured_products()
+def test_main_page_elements(browser):
+    page = MainPage(browser).open()
+    page.verify_top()
+    page.verify_top_links()
+    page.verify_common_home()
+    page.verify_content()
+    page.verify_slideshow()
+    page.verify_featured_products()
 
 
-def test_admin_navigation(browser, url):
-    browser.get(url + 'admin')
-    AdminPage(browser).login_admin()
-    AdminPage(browser).verify_element_by_ID('navigation')
-    AdminPage(browser).verify_element_by_ID('menu')
-    AdminPage(browser).logout_admin()
+def test_admin_navigation(browser):
+    page = AdminPage(browser).open()
+    page.login_admin()
+    page.verify_navigation()
+    page.verify_menu()
+    page.logout_admin()
 
 
-def test_category(browser, url):
-    DESKTOPS_CATEGORY_URL = url + "index.php?route=product/category&path=20"
-    LAPTOPS_CATEGORY_URL = url + "index.php?route=product/category&path=18"
-    TABLETS_CATEGORY_URL = url + "index.php?route=product/category&path=57"
-    browser.get(TABLETS_CATEGORY_URL)
-    CategoryPage(browser).verify_product_category()
-    CategoryPage(browser).verify_left_menu()
-    CategoryPage(browser).verify_content()
-    CategoryPage(browser).verify_products_list()
-    CategoryPage(browser).verify_products_quantity()
+def test_category(browser):
+    page = CategoryPage(browser)
+    page.open_components_category()
+    page.verify_product_category()
+    page.verify_left_menu()
+    page.verify_content()
+    page.verify_products_list()
+    page.verify_products_quantity()
 
 
 

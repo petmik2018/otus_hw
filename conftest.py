@@ -25,6 +25,7 @@ def browser(request):
 
     browser = request.config.getoption("--browser")
     url = request.config.getoption("--url")
+    test_name = request.node.name
 
     # https://www.selenium.dev/documentation/en/webdriver/page_loading_strategy/
     common_caps = {"pageLoadStrategy": "eager"}
@@ -36,12 +37,13 @@ def browser(request):
 
     request.addfinalizer(driver.quit)
 
-    def open(path=""):
-        return driver.get(url + path)
+    # def open(path=""):
+    #     return driver.get(url + path)
 
     driver.maximize_window()
-
+    driver.test_name = test_name
+    driver.base_url = url
     driver.open = open
-    driver.open()
+    # driver.open()
 
     return driver

@@ -12,6 +12,7 @@ class WishListPage(BasePage):
 
     def remove_first_product(self):
         self._click_element(self.REMOVE_BUTTON)
+        return self
 
     def get_text_from_wishlist_link(self):
         top_links = self._find_element(self.TOP_LINKS)

@@ -12,6 +12,10 @@ class MainPage(BasePage):
     FEATURE_PRODUCT_NAME = (By.CSS_SELECTOR, '.caption h4 a')
     GO_TO_WISHLIST = (By.ID, 'wishlist-total')
 
+    def open(self):
+        self._open()
+        return self
+
     def verify_top(self):
         self._find_element(self.TOP)
 
