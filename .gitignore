@@ -7,3 +7,6 @@ venv/
 ../__pycache__/
 __pycache__/
 
+#allure
+allure-results/
+allure-report/

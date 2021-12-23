@@ -58,10 +58,10 @@ class MainPage(BasePage):
         featured_product.click()
         return self
 
-    def go_to_all_laptops(self):
-        nav_menu = self.browser.find_element(*self.MAIN_MENU)
-        nav_menu.find_elements(*self.DROPDOWN_MENU_LIST)[1].click()
-        self.browser.find_elements(*self.OPENED_DROPDOWN_MENU)[2].click()
+    # def go_to_all_laptops(self):
+    #     nav_menu = self.browser.find_element(*self.MAIN_MENU)
+    #     nav_menu.find_elements(*self.DROPDOWN_MENU_LIST)[1].click()
+    #     self.browser.find_elements(*self.OPENED_DROPDOWN_MENU)[2].click()
 
     def go_to_wish_list(self):
         self._click_element(self.GO_TO_WISHLIST)

@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+import time
 
 from .BasePage import BasePage
 
@@ -50,8 +51,9 @@ class AdminPage(BasePage):
         return titles[2].text
 
     def open_filter_form(self):
+        self._find_element(self.FORM_PRODUCTS)
         try:
-            self._find_element(self.FORM_PRODUCTS)
+            self._find_element(self.INPUT_NAME)
         except:
             self._click_element(self.FILTER_ICON)
         return self

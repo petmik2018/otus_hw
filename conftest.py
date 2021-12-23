@@ -2,7 +2,6 @@ import os
 import pytest
 
 from selenium import webdriver
-# from selenium.webdriver.opera.options import Options as OperaOptions
 
 DRIVERS = os.path.expanduser("~/Downloads/drivers")
 
@@ -11,6 +10,7 @@ def pytest_addoption(parser):
     parser.addoption("--maximized", action="store_true", help="Maximize browser windows")
     parser.addoption("--headless", action="store_true", help="Run headless")
     parser.addoption("--browser", action="store", default="chrome", choices=["chrome", "firefox", "opera"])
+    parser.addoption("--executor", action="store", default="10.0.0.138")
     parser.addoption("--url", action="store", default="https://demo.opencart.com/")
 
 
@@ -21,29 +21,35 @@ def url(request):
 
 @pytest.fixture
 def browser(request):
-    """ Фикстура инициализации браузера """
-
     browser = request.config.getoption("--browser")
+    executor = request.config.getoption("--executor")
     url = request.config.getoption("--url")
     test_name = request.node.name
 
-    # https://www.selenium.dev/documentation/en/webdriver/page_loading_strategy/
-    common_caps = {"pageLoadStrategy": "eager"}
+    if executor == "local":
+        caps = {'goog:chromeOptions': {}}
+        driver = webdriver.Chrome(
+            executable_path=f"{DRIVERS}/chromedriver",
+            desired_capabilities=caps
+        )
 
-    driver = webdriver.Chrome(
-        executable_path=f"{DRIVERS}/chromedriver",
-        desired_capabilities=common_caps
-    )
+    else:
+        executor_url = f"http://{executor}:4444/wd/hub"
+        caps = {
+            "browserName": browser,
+            'goog:chromeOptions': {}
+        }
+        driver = webdriver.Remote(
+            command_executor=executor_url,
+            desired_capabilities=caps
+        )
 
-    request.addfinalizer(driver.quit)
+    def fin():
+        driver.quit()
 
-    # def open(path=""):
-    #     return driver.get(url + path)
-
-    driver.maximize_window()
-    driver.test_name = test_name
+    # driver.maximize_window()
     driver.base_url = url
-    driver.open = open
-    # driver.open()
+    driver.test_name = test_name
 
+    request.addfinalizer(fin)
     return driver
